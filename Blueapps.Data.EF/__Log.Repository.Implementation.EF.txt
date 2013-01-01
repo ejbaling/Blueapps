@@ -1,0 +1,21 @@
+- Edmx File: c:\Websites\Blueapps\Blueapps.Data.EF\Blueapps.edmx
+- Interface Repository namespace: Blueapps.Core.Repository
+- Domain Model namespace: Blueapps.Core.Domain
+- Processed Code File: EFReadOnlyRepository.cs
+- Processed Code File: aspnet_ApplicationsEFRepository.cs
+- Processed Code File: aspnet_MembershipEFRepository.cs
+- Processed Code File: aspnet_PathsEFRepository.cs
+- Processed Code File: aspnet_PersonalizationAllUsersEFRepository.cs
+- Processed Code File: aspnet_PersonalizationPerUserEFRepository.cs
+- Processed Code File: aspnet_ProfileEFRepository.cs
+- Processed Code File: aspnet_RolesEFRepository.cs
+- Processed Code File: aspnet_SchemaVersionsEFRepository.cs
+- Processed Code File: aspnet_UsersEFRepository.cs
+- Processed Code File: aspnet_WebEvent_EventsEFRepository.cs
+- Processed Code File: DeviceEFRepository.cs
+- Processed Code File: EFUnitOfWork.cs
+- Processed Code File: IObjectContext.cs
+- Processed Code File: ObjectContextAdapter.cs
+- Processed Code File: RepositoryIQueryableExtensions.cs
+- Processed Code File: EFRepositoryRegistry.cs.txt
+

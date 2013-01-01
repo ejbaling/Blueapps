@@ -1,0 +1,18 @@
+- Edmx File: ..\..\Blueapps.Data.Ef\Blueapps.edmx
+- Domain Model namespace: Blueapps.Core.Domain
+- Service Interface namespace: Blueapps.Core.Services
+- Processed Code File: aspnet_ApplicationsService.cs
+- Processed Code File: aspnet_MembershipService.cs
+- Processed Code File: aspnet_PathsService.cs
+- Processed Code File: aspnet_PersonalizationAllUsersService.cs
+- Processed Code File: aspnet_PersonalizationPerUserService.cs
+- Processed Code File: aspnet_ProfileService.cs
+- Processed Code File: aspnet_RolesService.cs
+- Processed Code File: aspnet_SchemaVersionsService.cs
+- Processed Code File: aspnet_UsersService.cs
+- Processed Code File: aspnet_WebEvent_EventsService.cs
+- Processed Code File: DeviceService.cs
+- Processed Code File: ServicesRegistry.cs.txt
+- 
+
+

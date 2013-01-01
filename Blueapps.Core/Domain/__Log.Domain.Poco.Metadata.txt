@@ -1,0 +1,15 @@
+- Edmx File: ..\..\Blueapps.Data.Ef\Blueapps.edmx
+- Processed Code File: aspnet_Applications.Metadata.cs
+- Processed Code File: aspnet_Membership.Metadata.cs
+- Processed Code File: aspnet_Paths.Metadata.cs
+- Processed Code File: aspnet_PersonalizationAllUsers.Metadata.cs
+- Processed Code File: aspnet_PersonalizationPerUser.Metadata.cs
+- Processed Code File: aspnet_Profile.Metadata.cs
+- Processed Code File: aspnet_Roles.Metadata.cs
+- Processed Code File: aspnet_SchemaVersions.Metadata.cs
+- Processed Code File: aspnet_Users.Metadata.cs
+- Processed Code File: aspnet_WebEvent_Events.Metadata.cs
+- Processed Code File: Device.Metadata.cs
+- 
+
+

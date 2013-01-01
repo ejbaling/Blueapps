@@ -41,9 +41,71 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\aspnet_ApplicationsService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_MembershipService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_PathsService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_PersonalizationAllUsersService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_PersonalizationPerUserService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_ProfileService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_RolesService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_SchemaVersionsService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_UsersService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\aspnet_WebEvent_EventsService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DeviceService.cs">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Service.Implementation.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Blueapps.Core\Blueapps.Core.csproj">
+      <Project>{4F84D0AD-35E9-41BD-9BB8-335EDC662F42}</Project>
+      <Name>Blueapps.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <None Include="Services\Service.Implementation.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Service.Implementation.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services\ServicesRegistry.cs.txt">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Content>
+    <Content Include="Services\__Log.Service.Implementation.txt">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Content>
+    <Content Include="Services\__StructureMap.Service.Implementation.txt">
+      <DependentUpon>Service.Implementation.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

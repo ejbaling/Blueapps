@@ -1,0 +1,581 @@
+<#
+//*********************************************************
+//
+//   Last Updated: 1630 08 MAR 2011
+//
+//*********************************************************
+#>
+<#@ template language="C#" debug="true" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ output extension=".cs"#>
+<#
+//***************************************************************
+//***************** BEGIN Template Settings *********************
+//***************************************************************
+
+// This needs to be set to the .edmx file that you want to process.
+string edmxFile = FindEDMXFileName();
+
+// the namespace name where the Domain Models (POCOs) live
+string domainModelNamespace = @"Blueapps.Core.Domain";
+
+// the namespace name where the Repository Interfaces live
+string repositoryInterfaceNamespace = @"Blueapps.Core.Repository";
+
+// answers the question: Force generation of file even if the code file exists?
+bool forceCodeGeneration = false;
+
+//***************************************************************
+//***************** END Template Settings ***********************
+//***************************************************************
+
+this.Log(string.Format("Edmx File: {0}", edmxFile));
+this.Log(string.Format("Interface Repository namespace: {0}", repositoryInterfaceNamespace));
+this.Log(string.Format("Domain Model namespace: {0}", domainModelNamespace));
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+MetadataTools ef = new MetadataTools(this);
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+string fileName = string.Empty;
+
+AddToStructureMapBufferNonGeneric("typeof (IRepository<>)", "typeof (EFRepository<>)");
+#>using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// Entity Framework Respository
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class EFRepository<T> : EFReadOnlyRepository<T>, IRepository<T> where T : class
+    {
+        #region Ctors
+
+        public EFRepository(IObjectContext context) : base(context)
+        {
+        }
+
+        #endregion Ctors
+
+        #region Methods
+
+        /// <summary>
+        /// Adds the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        public void Add(T entity)
+        {
+            ObjectSet.AddObject(entity);
+        }
+
+        /// <summary>
+        /// Deletes the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to delete.</param>
+        public void Delete(T entity)
+        {
+            ObjectSet.DeleteObject(entity);
+        }
+
+        /// <summary>
+        /// Attaches the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to attach.</param>
+        public void Attach(T entity)
+        {
+            ObjectSet.Attach(entity);
+        }
+
+        #endregion Methods
+    }
+}
+<# 
+fileManager.StartNewFile(this.LogFile("EFReadOnlyRepository.cs")); 
+AddToStructureMapBufferNonGeneric("typeof (IReadOnlyRepository<>)", "typeof (EFReadOnlyRepository<>)");
+#>
+using System;
+using System.Collections.Generic;
+using System.Data.Objects;
+using System.Linq;
+using System.Linq.Expressions;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// Entity Framework Read-Only Repository
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class EFReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
+    {
+        #region Fields
+        protected readonly IObjectSet<T> ObjectSet;
+        #endregion Fields
+
+        #region Ctors
+        public EFReadOnlyRepository(IObjectContext context)
+        {
+            this.ObjectSet = context.CreateObjectSet<T>();
+        }
+
+        #endregion Ctors
+
+        #region Properties
+        #endregion Properties
+
+        #region Methods
+        /// <summary>
+        /// Gets an IQueryable sequence of entities of type T.
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<T> Queryable()
+        {
+            return this.ObjectSet;
+        }
+
+        /// <summary>
+        /// Gets an IEnumerable sequence of all entites of type T.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> All()
+        {
+            return this.ObjectSet.ToList();
+        }
+
+        /// <summary>
+        /// Get an IEnumerable sequence of entities of type T filtered on the @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        public IEnumerable<T> Find(Expression<Func<T, bool>> where)
+        {
+            return this.ObjectSet.Where(where);
+        }
+
+        /// <summary>
+        /// Gets a single entity in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        public T Single(Expression<Func<T, bool>> where)
+        {
+            return this.ObjectSet.Single(where);
+        }
+
+        /// <summary>
+        /// Gets the first entity in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        public T First(Expression<Func<T, bool>> where)
+        {
+            return this.ObjectSet.First(where);
+        }
+
+        /// <summary>
+        /// Gets a single entity (or default of entity of type T) in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        public T SingleOrDefault(Expression<Func<T, bool>> where)
+        {
+            return this.ObjectSet.SingleOrDefault(where);
+        }
+
+        /// <summary>
+        /// Gets a first entity (or default entity of type T) in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        public T FirstOrDefault(Expression<Func<T, bool>> where)
+        {
+            return this.ObjectSet.FirstOrDefault(where);
+        }
+        #endregion Methods
+    }
+}
+
+<#
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(edmxFile);
+EntityContainer container = ItemCollection.GetItems<EntityContainer>().FirstOrDefault();
+
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+	string objectName = string.Format("{0}EFRepository", code.Escape(entity));
+	AddToStructureMapBuffer(string.Format("I{0}Repository", code.Escape(entity)), objectName);
+	fileName = string.Format("{0}.cs", objectName);
+
+	if(!DoesFileExist(fileName, forceCodeGeneration))	
+	{
+		fileManager.StartNewFile(this.LogFile(fileName));
+		#>using System;
+using System.Linq;
+using System.Collections.Generic;
+using <#= repositoryInterfaceNamespace #>;
+using <#= domainModelNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{	
+    /// <summary>
+    /// Entity Framework implementation of the I<#= code.Escape(entity) #>Repository
+    /// </summary>
+	<#=Accessibility.ForType(entity)#> <#=code.SpaceAfter(code.AbstractOption(entity))#>partial class <#= objectName #> : EFRepository<<#=code.Escape(entity)#>>, I<#=code.Escape(entity)#>Repository
+	{
+        #region Ctors
+
+        public <#= objectName #>(IObjectContext context) : base(context)
+        {
+        }
+
+        #endregion Ctors
+	}
+}<#
+	}
+	else
+	{
+		fileManager.StartNewFile(this.LogFile(fileName));
+		this.Write(OutputFile(fileName));
+	}	
+}
+#>
+
+<# 
+fileManager.StartNewFile(this.LogFile("EFUnitOfWork.cs")); 
+AddCommentToStructureMapBuffer("// Unit of Work & ObjectContext - StructureMap DI Registration", true);
+AddToStructureMapBuffer("IUnitOfWork", "EFUnitOfWork");
+// Repositories
+#>using System;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// Entity Framework Unit of Work
+    /// </summary>
+    public class EFUnitOfWork : IUnitOfWork, IDisposable
+    {
+        #region Fields
+
+        private readonly IObjectContext _context;
+
+        #endregion Fields
+
+        #region Methods
+
+        #region IDisposable Members
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            if (_context != null)
+            {
+                _context.Dispose();
+            }
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region IUnitOfWork Members
+
+        /// <summary>
+        /// Commits the changes to the data store.
+        /// </summary>
+        public void Commit()
+        {
+            _context.SaveChanges();
+        }
+
+        #endregion
+
+        #endregion Methods
+
+        #region Ctors
+
+        public EFUnitOfWork(IObjectContext context)
+        {
+            _context = context;
+        }
+
+        #endregion Ctors
+    }
+}
+<#
+fileManager.StartNewFile(this.LogFile("IObjectContext.cs")); 
+AddToStructureMapBuffer("IObjectContext", "ObjectContextAdapter");
+AddStructureMapLifeCycle(code.Escape(container));
+#>using System;
+using System.Data.Objects;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// The ObjectContext contract.
+    /// </summary>
+    public interface IObjectContext : IDisposable
+    {
+        /// <summary>
+        /// Creates a new System.Data.Objects.ObjectSet T instance that is used to query, add, modify, and delete objects of the specified entity type.
+        /// </summary>
+        /// <typeparam name="T">Entity type of the requested System.Data.Objects.ObjectSet T.</typeparam>
+        /// <returns>The new System.Data.Objects.ObjectSet T instance.</returns>
+        IObjectSet<T> CreateObjectSet<T>() where T : class;
+
+        /// <summary>
+        /// Persists all updates to the data store.
+        /// </summary>
+        void SaveChanges();
+    }
+}
+
+<# fileManager.StartNewFile(this.LogFile("ObjectContextAdapter.cs")); #>
+using System.Data.Objects;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// ObjectContext Adapter class.
+    /// </summary>
+    public class ObjectContextAdapter : IObjectContext
+    {
+        #region Fields
+
+        private readonly ObjectContext _context;
+
+        #endregion Fields
+
+        #region Methods
+
+        /// <summary>
+        /// Creates a new System.Data.Objects.ObjectSet T instance that is used to query, add, modify, and delete objects of the specified entity type.
+        /// </summary>
+        /// <typeparam name="T">Entity type of the requested System.Data.Objects.ObjectSet T.</typeparam>
+        /// <returns>The new System.Data.Objects.ObjectSet T instance.</returns>
+        public IObjectSet<T> CreateObjectSet<T>() where T : class
+        {
+            return _context.CreateObjectSet<T>();
+        }
+
+        /// <summary>
+        /// Persists all updates to the data store.
+        /// </summary>
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
+        #endregion Methods
+
+        #region Ctors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectContextAdapter"/> class.
+        /// </summary>
+        /// <param name="context">The object context.</param>
+        public ObjectContextAdapter(ObjectContext context)
+        {
+            _context = context;
+        }
+
+        #endregion Ctors
+    }
+}
+<# 
+fileName = "RepositoryIQueryableExtensions.cs";
+
+if(!DoesFileExist(fileName, forceCodeGeneration))	
+{
+	fileManager.StartNewFile(this.LogFile(fileName));
+#>using System.Data.Objects;
+using System.Linq;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+	/// <summary>
+    /// IQueryable Extensions class.
+    /// </summary>
+    public static class RepositoryIQueryableExtensions
+    {
+		/// <summary>
+        /// Eager Loading 'Include' method to provide eager loading for Entity Framework-based data models.
+        /// For more information on this extension method: Testability and Entity Framework 4.0 
+		/// <see cref="http://msdn.microsoft.com/en-us/ff714955.aspx"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        public static IQueryable<T> Include<T>(this IQueryable<T> source, string path) where T : class
+        {
+            var objectQuery = source as ObjectQuery<T>;
+            return objectQuery != null ? objectQuery.Include(path) : source;
+        }
+    }
+}
+<#
+}
+else
+{
+	fileManager.StartNewFile(this.LogFile(fileName));
+	this.Write(OutputFile(fileName));
+}
+#>
+<# fileManager.StartNewFile(this.LogFile("EFRepositoryRegistry.cs.txt")); #>
+using StructureMap.Configuration.DSL;
+using <#= repositoryInterfaceNamespace #>;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+	public class EFRepositoryRegistry : Registry
+	{
+		public EFRepositoryRegistry()
+		{
+			// Repositories - StructureMap DI Registration
+<# 
+			foreach(var reg in this._structureMapRegistryBuffer){
+#>
+			<#= reg #>
+<#				
+			}
+#>
+		}
+	}
+}<#
+fileManager.StartNewFile(GetStructureMapFileName());
+#>
+<#= this.WriteStructureMapRegistration() #>
+
+<#
+fileManager.StartNewFile(GetLogFileName());
+#>
+<#= this.WriteLog() #>
+<#	fileManager.Process(); #>
+
+<#+
+bool DoesFileExist(string filename, bool forceCodeGeneration)
+{
+	if(forceCodeGeneration) return false;
+	return File.Exists(Path.Combine(GetCurrentDirectory(),filename));
+}
+
+string OutputFile(string filename)
+{
+	using(StreamReader sr = new StreamReader(Path.Combine(GetCurrentDirectory(),filename)))
+	{
+		string contents = sr.ReadToEnd();
+		return contents;
+	}
+}
+
+string GetCurrentDirectory()
+{
+	string executingDirectoryName = "";
+	string stackTraceFileName = new StackTrace(true).GetFrame(0).GetFileName();
+	if (String.IsNullOrEmpty(stackTraceFileName))
+	{
+		throw new ArgumentException("No value was specified for the 'directoryName' configuration parameter" +
+			", and we could not figure out the file name from the stack trace (most likely because of running " +
+			"the template with debug='False' specified in the <\u0023@ template \u0023> directive.");
+	}
+	else
+	{		
+		executingDirectoryName = Path.GetDirectoryName(stackTraceFileName);
+	}	
+	return executingDirectoryName;
+}
+
+string FindEDMXFileName()
+{
+	string edmxFile = "";				
+	string[] entityFrameworkFiles = Directory.GetFiles(GetCurrentDirectory(), "*.edmx");    
+	if(entityFrameworkFiles.Length > 0)
+		edmxFile = entityFrameworkFiles[0];	    
+	return edmxFile;
+}
+
+StringBuilder _logBuffer = new StringBuilder();
+void Log(string message)
+{
+	_logBuffer.AppendFormat("- {0}", message);
+	_logBuffer.AppendLine();
+}
+
+string LogFile(string fileName)
+{
+	Log(string.Format("Processed Code File: {0}", fileName));
+	return fileName;
+}
+
+string WriteLog()
+{
+	return _logBuffer.ToString();	
+}
+
+string GetLogFileName()
+{
+	return string.Format("__Log.{0}", Path.GetFileName(Path.ChangeExtension(Host.TemplateFile, "txt")));
+}
+
+string GetStructureMapFileName()
+{
+	return string.Format("__StructureMap.{0}", Path.GetFileName(Path.ChangeExtension(Host.TemplateFile, "txt")));	
+}
+
+string WriteStructureMapRegistration()
+{
+	StringBuilder sb = new StringBuilder();
+	sb.AppendLine("// Repositories - StructureMap DI Registration");
+	foreach(var reg in _structureMapBuffer){
+		sb.AppendLine(reg);
+	}	
+	return sb.ToString();
+}
+
+List<string> _structureMapBuffer = new List<string>();
+List<string> _structureMapRegistryBuffer = new List<string>();
+void AddToStructureMapBuffer(string entityName)
+{
+	_structureMapBuffer.Add(string.Format("x.For<I{0}>().Use<{0}>();", entityName));
+	_structureMapRegistryBuffer.Add(string.Format("For<I{0}>().Use<{0}>();", entityName));
+}
+void AddToStructureMapBuffer(string interfaceName, string entityName)
+{
+	_structureMapBuffer.Add(string.Format("x.For<{0}>().Use<{1}>();", interfaceName, entityName));
+	_structureMapRegistryBuffer.Add(string.Format("For<{0}>().Use<{1}>();", interfaceName, entityName));
+}
+void AddToStructureMapBufferNonGeneric(string interfaceName, string entityName)
+{	
+	_structureMapBuffer.Add(string.Format("x.For({0}).Use({1});", interfaceName, entityName));
+	_structureMapRegistryBuffer.Add(string.Format("For({0}).Use({1});", interfaceName, entityName));
+}
+void AddStructureMapLifeCycle(string container)
+{
+	string lifeCycleRegistration = string.Format("For<ObjectContext>().HybridHttpOrThreadLocalScoped().Use(() => new {0}());", container);
+	_structureMapBuffer.Add(string.Format("x.{0}", lifeCycleRegistration));
+	_structureMapRegistryBuffer.Add(lifeCycleRegistration);
+}
+void AddCommentToStructureMapBuffer(string comment, bool prependLineBreak)
+{
+    if(prependLineBreak) _structureMapBuffer.Add(Environment.NewLine);
+    _structureMapBuffer.Add(comment);
+	if(prependLineBreak) _structureMapRegistryBuffer.Add(Environment.NewLine);
+    _structureMapRegistryBuffer.Add(comment);
+}
+#>

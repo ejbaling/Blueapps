@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,12 +41,198 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\aspnet_Applications.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Applications.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Membership.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Membership.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Paths.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Paths.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_PersonalizationAllUsers.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_PersonalizationPerUser.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Profile.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Profile.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Roles.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Roles.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_SchemaVersions.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_SchemaVersions.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Users.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_Users.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_WebEvent_Events.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\aspnet_WebEvent_Events.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Device.cs">
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Device.Metadata.cs">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Domain.Poco.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Domain.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Domain.Poco.Metadata.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Iaspnet_ApplicationsRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_MembershipRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_PathsRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_PersonalizationAllUsersRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_PersonalizationPerUserRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_ProfileRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_RolesRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_SchemaVersionsRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_UsersRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Iaspnet_WebEvent_EventsRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IDeviceRepository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IReadOnlyRespository.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IUnitOfWork.cs">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Repository.Interface.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_ApplicationsService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_MembershipService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_PathsService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_PersonalizationAllUsersService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_PersonalizationPerUserService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_ProfileService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_RolesService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_SchemaVersionsService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_UsersService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Iaspnet_WebEvent_EventsService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IDeviceService.cs">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Service.Interface.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Domain\Domain.Poco.Metadata.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Domain.Poco.Metadata.cs</LastGenOutput>
+    </None>
+    <None Include="Domain\Domain.Poco.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Domain.Poco.cs</LastGenOutput>
+    </None>
+    <None Include="Repository\Repository.Interface.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Repository.Interface.cs</LastGenOutput>
+    </None>
+    <None Include="Services\Service.Interface.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Service.Interface.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Repository\" />
-    <Folder Include="Services\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Domain\__Log.Domain.Poco.Metadata.txt">
+      <DependentUpon>Domain.Poco.Metadata.tt</DependentUpon>
+    </Content>
+    <Content Include="Repository\__Log.Repository.Interface.txt">
+      <DependentUpon>Repository.Interface.tt</DependentUpon>
+    </Content>
+    <Content Include="Services\__Log.Service.Interface.txt">
+      <DependentUpon>Service.Interface.tt</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

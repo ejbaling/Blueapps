@@ -1,0 +1,249 @@
+<#
+//*********************************************************
+//
+//   Last Updated: 1630 08 MAR 2011
+//
+//*********************************************************
+#>
+<#@ template language="C#" debug="true" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Data.Entity" #>
+<#@ output extension=".cs"#>
+
+<#
+//***************************************************************
+//***************** BEGIN Template Settings *********************
+//***************************************************************
+
+// This needs to be set to the .edmx file that you want to process.
+string edmxFile = @"..\..\Blueapps.Data.Ef\Blueapps.edmx";
+
+// the namespace name where the Domain Models (POCOs) live
+string domainModelNamespace = @"Blueapps.Core.Domain";
+
+// answers the question: Force generation of file even if the code file exists?
+bool forceCodeGeneration = false;
+
+//***************************************************************
+//***************** END Template Settings ***********************
+//***************************************************************
+
+this.Log(string.Format("Edmx File: {0}", edmxFile));
+this.Log(string.Format("Domain Model namespace: {0}", domainModelNamespace));
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+MetadataTools ef = new MetadataTools(this);
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{ 
+    /// <summary>
+    /// Generic Repository Contract.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IRepository<T> : IReadOnlyRepository<T> where T : class
+    {
+        /// <summary>
+        /// Adds the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        void Add(T entity);
+
+        /// <summary>
+        /// Deletes the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to delete.</param>
+        void Delete(T entity);
+
+        /// <summary>
+        /// Attaches the specified entity to the respository of type T.
+        /// </summary>
+        /// <param name="entity">The entity to attach.</param>
+        void Attach(T entity);
+    }
+}
+<#
+fileManager.StartNewFile(this.LogFile("IReadOnlyRespository.cs"));
+#>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+
+namespace <#= code.VsNamespaceSuggestion() #>
+{
+    /// <summary>
+    /// Generic Read-Only Repository Contract
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IReadOnlyRepository<T> where T : class
+    {
+        /// <summary>
+        /// Gets an IQueryable sequence of entities of type T.
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<T> Queryable();
+
+        /// <summary>
+        /// Gets an IEnumerable sequence of all entites of type T.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<T> All();
+
+        /// <summary>
+        /// Get an IEnumerable sequence of entities of type T filtered on the @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        IEnumerable<T> Find(Expression<Func<T, bool>> where);
+
+        /// <summary>
+        /// Gets a single entity in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        T Single(Expression<Func<T, bool>> where);
+
+        /// <summary>
+        /// Gets the first entity in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        T First(Expression<Func<T, bool>> where);
+
+        /// <summary>
+        /// Gets a single entity (or default of entity of type T) in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        T SingleOrDefault(Expression<Func<T, bool>> where);
+
+        /// <summary>
+        /// Gets a first entity (or default entity of type T) in a sequence of entities of type T using the filtered @where predicate.
+        /// </summary>
+        /// <param name="where">The where predicate.</param>
+        /// <returns></returns>
+        T FirstOrDefault(Expression<Func<T, bool>> where);
+    }
+}
+
+<#
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(edmxFile);
+EntityContainer container = ItemCollection.GetItems<EntityContainer>().FirstOrDefault();
+
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{		
+	string fileName = string.Format("I{0}Repository.cs", entity.Name);
+	
+	if(!DoesFileExist(fileName, forceCodeGeneration))	
+	{
+		fileManager.StartNewFile(this.LogFile(fileName));
+		#>using System;
+using System.Linq;
+using System.Collections.Generic;
+using <#= domainModelNamespace #>;
+	
+namespace <#= code.VsNamespaceSuggestion() #>
+{	
+    /// <summary>
+    /// I<#= code.Escape(entity) #>Repository Contract
+    /// </summary>
+	<#=Accessibility.ForType(entity)#> <#=code.SpaceAfter(code.AbstractOption(entity))#>interface I<#=code.Escape(entity)#>Repository : IRepository<<#= code.Escape(entity) #>>
+	{	
+	}
+}<#
+	}
+	else
+	{
+		fileManager.StartNewFile(this.LogFile(fileName));
+		this.Write(OutputFile(fileName));
+	}	
+}
+#>
+
+<#
+fileManager.StartNewFile(this.LogFile("IUnitOfWork.cs"));
+#>
+namespace <#= code.VsNamespaceSuggestion() #>
+{	
+	/// <summary>
+    /// Unit of Work Contract
+    /// </summary>
+    public interface IUnitOfWork
+    {
+        /// <summary>
+        /// Commits the changes to the data store.
+        /// </summary>
+        void Commit();
+    }
+}
+
+<#
+fileManager.StartNewFile(GetLogFileName());
+#>
+<#= this.WriteLog() #>
+<#	fileManager.Process(); #>
+
+<#+
+bool DoesFileExist(string filename, bool forceCodeGeneration)
+{
+	if(forceCodeGeneration) return false;
+	return File.Exists(Path.Combine(GetCurrentDirectory(),filename));
+}
+
+string OutputFile(string filename)
+{
+	using(StreamReader sr = new StreamReader(Path.Combine(GetCurrentDirectory(),filename)))
+	{
+		string contents = sr.ReadToEnd();
+		return contents;
+	}
+}
+
+string GetCurrentDirectory()
+{
+	string executingDirectoryName = "";
+	string stackTraceFileName = new StackTrace(true).GetFrame(0).GetFileName();
+	if (String.IsNullOrEmpty(stackTraceFileName))
+	{
+		throw new ArgumentException("No value was specified for the 'directoryName' configuration parameter" +
+			", and we could not figure out the file name from the stack trace (most likely because of running " +
+			"the template with debug='False' specified in the <\u0023@ template \u0023> directive.");
+	}
+	else
+	{		
+		executingDirectoryName = Path.GetDirectoryName(stackTraceFileName);
+	}	
+	return executingDirectoryName;
+}
+
+StringBuilder _logBuffer = new StringBuilder();
+void Log(string message)
+{
+	_logBuffer.AppendFormat("- {0}", message);
+	_logBuffer.AppendLine();
+}
+
+string LogFile(string fileName)
+{
+	Log(string.Format("Processed Code File: {0}", fileName));
+	return fileName;
+}
+
+string WriteLog()
+{
+	return _logBuffer.ToString();	
+}
+
+string GetLogFileName()
+{
+	return string.Format("__Log.{0}", Path.GetFileName(Path.ChangeExtension(Host.TemplateFile, "txt")));
+}
+#>

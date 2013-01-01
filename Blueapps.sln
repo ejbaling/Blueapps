@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blueapps.Data.EF", "Blueapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blueapps.Infrastructure", "Blueapps.Infrastructure\Blueapps.Infrastructure.csproj", "{C7CF595A-4365-4DB3-85DD-9C4E82059BAF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E2422F90-F207-40A2-ABD3-EF39E05F97BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{FF167AAE-D55E-4F2D-A1BC-9EE3CE951BB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{579C578B-6E48-4F3F-8550-C3A50B0B9A0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +40,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4F84D0AD-35E9-41BD-9BB8-335EDC662F42} = {E2422F90-F207-40A2-ABD3-EF39E05F97BC}
+		{96B328EE-5788-4BED-B451-7C8349A0598A} = {FF167AAE-D55E-4F2D-A1BC-9EE3CE951BB0}
+		{C7CF595A-4365-4DB3-85DD-9C4E82059BAF} = {FF167AAE-D55E-4F2D-A1BC-9EE3CE951BB0}
+		{9E59A2E2-4614-4B2F-887F-0264C28B2425} = {579C578B-6E48-4F3F-8550-C3A50B0B9A0E}
 	EndGlobalSection
 EndGlobal

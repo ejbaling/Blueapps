@@ -1,0 +1,14 @@
+// Services - StructureMap DI Registration
+x.For<Iaspnet_ApplicationsService>().Use<aspnet_ApplicationsService>();
+x.For<Iaspnet_MembershipService>().Use<aspnet_MembershipService>();
+x.For<Iaspnet_PathsService>().Use<aspnet_PathsService>();
+x.For<Iaspnet_PersonalizationAllUsersService>().Use<aspnet_PersonalizationAllUsersService>();
+x.For<Iaspnet_PersonalizationPerUserService>().Use<aspnet_PersonalizationPerUserService>();
+x.For<Iaspnet_ProfileService>().Use<aspnet_ProfileService>();
+x.For<Iaspnet_RolesService>().Use<aspnet_RolesService>();
+x.For<Iaspnet_SchemaVersionsService>().Use<aspnet_SchemaVersionsService>();
+x.For<Iaspnet_UsersService>().Use<aspnet_UsersService>();
+x.For<Iaspnet_WebEvent_EventsService>().Use<aspnet_WebEvent_EventsService>();
+x.For<IDeviceService>().Use<DeviceService>();
+
+

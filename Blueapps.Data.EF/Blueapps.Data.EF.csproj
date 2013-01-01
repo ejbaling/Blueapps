@@ -43,21 +43,105 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aspnet_ApplicationsEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_MembershipEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PathsEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationAllUsersEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationPerUserEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_ProfileEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_RolesEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_SchemaVersionsEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_UsersEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_WebEvent_EventsEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
     <Compile Include="Blueapps.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Blueapps.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DeviceEFRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFReadOnlyRepository.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFUnitOfWork.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IObjectContext.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectContextAdapter.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Poco.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Poco.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.Implementation.EF.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RepositoryIQueryableExtensions.cs">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Blueapps.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Blueapps.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Poco.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Poco.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Repository.Implementation.EF.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Repository.Implementation.EF.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <ProjectReference Include="..\Blueapps.Core\Blueapps.Core.csproj">
+      <Project>{4F84D0AD-35E9-41BD-9BB8-335EDC662F42}</Project>
+      <Name>Blueapps.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EFRepositoryRegistry.cs.txt">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Content>
+    <Content Include="__Log.Repository.Implementation.EF.txt">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Content>
+    <Content Include="__StructureMap.Repository.Implementation.EF.txt">
+      <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

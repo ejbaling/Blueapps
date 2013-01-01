@@ -1,0 +1,22 @@
+// Repositories - StructureMap DI Registration
+x.For(typeof (IRepository<>)).Use(typeof (EFRepository<>));
+x.For(typeof (IReadOnlyRepository<>)).Use(typeof (EFReadOnlyRepository<>));
+x.For<Iaspnet_ApplicationsRepository>().Use<aspnet_ApplicationsEFRepository>();
+x.For<Iaspnet_MembershipRepository>().Use<aspnet_MembershipEFRepository>();
+x.For<Iaspnet_PathsRepository>().Use<aspnet_PathsEFRepository>();
+x.For<Iaspnet_PersonalizationAllUsersRepository>().Use<aspnet_PersonalizationAllUsersEFRepository>();
+x.For<Iaspnet_PersonalizationPerUserRepository>().Use<aspnet_PersonalizationPerUserEFRepository>();
+x.For<Iaspnet_ProfileRepository>().Use<aspnet_ProfileEFRepository>();
+x.For<Iaspnet_RolesRepository>().Use<aspnet_RolesEFRepository>();
+x.For<Iaspnet_SchemaVersionsRepository>().Use<aspnet_SchemaVersionsEFRepository>();
+x.For<Iaspnet_UsersRepository>().Use<aspnet_UsersEFRepository>();
+x.For<Iaspnet_WebEvent_EventsRepository>().Use<aspnet_WebEvent_EventsEFRepository>();
+x.For<IDeviceRepository>().Use<DeviceEFRepository>();
+
+
+// Unit of Work & ObjectContext - StructureMap DI Registration
+x.For<IUnitOfWork>().Use<EFUnitOfWork>();
+x.For<IObjectContext>().Use<ObjectContextAdapter>();
+x.For<ObjectContext>().HybridHttpOrThreadLocalScoped().Use(() => new Entities());
+
+

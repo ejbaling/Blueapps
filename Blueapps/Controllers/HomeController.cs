@@ -10,7 +10,7 @@ namespace Blueapps.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC! Hello World!";
+            ViewBag.Message = "Welcome to ASP.NET MVC!";
 
             return View();
         }
