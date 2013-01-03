@@ -68,7 +68,7 @@ namespace <#= code.VsNamespaceSuggestion() #>
     /// <summary>
     /// <#= code.Escape(entity) #>Service Implementation of I<#=code.Escape(entity)#>Service.
     /// </summary>
-	public class <#=code.Escape(entity)#>Service : I<#=code.Escape(entity)#>Service
+	public partial class <#=code.Escape(entity)#>Service : I<#=code.Escape(entity)#>Service
 	{
 	
 	}

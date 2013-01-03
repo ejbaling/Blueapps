@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_PathsService Implementation of Iaspnet_PathsService.
     /// </summary>
-	public class aspnet_PathsService : Iaspnet_PathsService
+	public partial class aspnet_PathsService : Iaspnet_PathsService
 	{
 	
 	}

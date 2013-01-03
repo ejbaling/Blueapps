@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_ProfileService Implementation of Iaspnet_ProfileService.
     /// </summary>
-	public class aspnet_ProfileService : Iaspnet_ProfileService
+	public partial class aspnet_ProfileService : Iaspnet_ProfileService
 	{
 	
 	}

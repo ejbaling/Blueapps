@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_PersonalizationPerUserService Implementation of Iaspnet_PersonalizationPerUserService.
     /// </summary>
-	public class aspnet_PersonalizationPerUserService : Iaspnet_PersonalizationPerUserService
+	public partial class aspnet_PersonalizationPerUserService : Iaspnet_PersonalizationPerUserService
 	{
 	
 	}

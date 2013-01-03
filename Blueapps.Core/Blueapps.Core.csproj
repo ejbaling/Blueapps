@@ -201,7 +201,6 @@
       <DependentUpon>Service.Interface.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Domain\Domain.Poco.Metadata.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

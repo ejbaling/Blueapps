@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_SchemaVersionsService Implementation of Iaspnet_SchemaVersionsService.
     /// </summary>
-	public class aspnet_SchemaVersionsService : Iaspnet_SchemaVersionsService
+	public partial class aspnet_SchemaVersionsService : Iaspnet_SchemaVersionsService
 	{
 	
 	}

@@ -71,6 +71,7 @@
     <Compile Include="Services\aspnet_WebEvent_EventsService.cs">
       <DependentUpon>Service.Implementation.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\Service.Implementation\DeviceService.cs" />
     <Compile Include="Services\DeviceService.cs">
       <DependentUpon>Service.Implementation.tt</DependentUpon>
     </Compile>
@@ -80,13 +81,16 @@
       <DependentUpon>Service.Implementation.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Blueapps.Core\Blueapps.Core.csproj">
       <Project>{4F84D0AD-35E9-41BD-9BB8-335EDC662F42}</Project>
       <Name>Blueapps.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Services\Service.Implementation.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -103,9 +107,6 @@
     <Content Include="Services\__StructureMap.Service.Implementation.txt">
       <DependentUpon>Service.Implementation.tt</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// DeviceService Implementation of IDeviceService.
     /// </summary>
-	public class DeviceService : IDeviceService
+	public partial class DeviceService : IDeviceService
 	{
 	
 	}

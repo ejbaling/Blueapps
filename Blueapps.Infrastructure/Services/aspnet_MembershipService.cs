@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_MembershipService Implementation of Iaspnet_MembershipService.
     /// </summary>
-	public class aspnet_MembershipService : Iaspnet_MembershipService
+	public partial class aspnet_MembershipService : Iaspnet_MembershipService
 	{
 	
 	}

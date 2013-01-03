@@ -9,7 +9,7 @@ namespace Blueapps.Infrastructure.Services
     /// <summary>
     /// aspnet_UsersService Implementation of Iaspnet_UsersService.
     /// </summary>
-	public class aspnet_UsersService : Iaspnet_UsersService
+	public partial class aspnet_UsersService : Iaspnet_UsersService
 	{
 	
 	}
