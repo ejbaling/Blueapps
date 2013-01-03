@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Service.Implementation.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\ServicesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blueapps.Core\Blueapps.Core.csproj">

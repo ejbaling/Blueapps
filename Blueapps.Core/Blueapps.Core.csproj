@@ -200,6 +200,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Service.Interface.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ValidationError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Domain\Domain.Poco.Metadata.tt">

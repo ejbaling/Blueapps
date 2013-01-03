@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -84,6 +87,7 @@
     <Compile Include="EFReadOnlyRepository.cs">
       <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
     </Compile>
+    <Compile Include="EFRepositoryRegistry.cs" />
     <Compile Include="EFUnitOfWork.cs">
       <DependentUpon>Repository.Implementation.EF.tt</DependentUpon>
     </Compile>

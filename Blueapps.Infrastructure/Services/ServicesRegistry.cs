@@ -1,0 +1,24 @@
+﻿using StructureMap.Configuration.DSL;
+using Blueapps.Core.Services;
+
+namespace Blueapps.Infrastructure.Services
+{
+    public class ServicesRegistry : Registry
+    {
+        public ServicesRegistry()
+        {
+            // Services - StructureMap DI Registration
+            For<Iaspnet_ApplicationsService>().Use<aspnet_ApplicationsService>();
+            For<Iaspnet_MembershipService>().Use<aspnet_MembershipService>();
+            For<Iaspnet_PathsService>().Use<aspnet_PathsService>();
+            For<Iaspnet_PersonalizationAllUsersService>().Use<aspnet_PersonalizationAllUsersService>();
+            For<Iaspnet_PersonalizationPerUserService>().Use<aspnet_PersonalizationPerUserService>();
+            For<Iaspnet_ProfileService>().Use<aspnet_ProfileService>();
+            For<Iaspnet_RolesService>().Use<aspnet_RolesService>();
+            For<Iaspnet_SchemaVersionsService>().Use<aspnet_SchemaVersionsService>();
+            For<Iaspnet_UsersService>().Use<aspnet_UsersService>();
+            For<Iaspnet_WebEvent_EventsService>().Use<aspnet_WebEvent_EventsService>();
+            For<IDeviceService>().Use<DeviceService>();
+        }
+    }
+}

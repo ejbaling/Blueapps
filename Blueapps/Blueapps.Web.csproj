@@ -38,6 +38,9 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -62,7 +65,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\StructureMapContainerSetup.cs" />
+    <Compile Include="Bootstrap\StructureMapDependencyResolver.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,6 +214,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blueapps.Core\Blueapps.Core.csproj">
+      <Project>{4F84D0AD-35E9-41BD-9BB8-335EDC662F42}</Project>
+      <Name>Blueapps.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Blueapps.Data.EF\Blueapps.Data.EF.csproj">
+      <Project>{96B328EE-5788-4BED-B451-7C8349A0598A}</Project>
+      <Name>Blueapps.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Blueapps.Infrastructure\Blueapps.Infrastructure.csproj">
+      <Project>{C7CF595A-4365-4DB3-85DD-9C4E82059BAF}</Project>
+      <Name>Blueapps.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

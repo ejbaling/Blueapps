@@ -7,7 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Blueapps.Models;
 
-namespace Blueapps.Controllers
+namespace Blueapps.Web.Controllers
 {
     public class AccountController : Controller
     {
